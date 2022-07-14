@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         var authToken = "";
 
         // Login
-        apiClient.getApiService()
+        apiClient.getApiService(this)
             .login(LoginRequest(email = "yusuf@gmail.com", password = "qwerty"))
             .enqueue(object : Callback<LoginResponse> {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
@@ -63,12 +63,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getBookList() {
-        val authToken = sessionManager.fetchAuthToken();
-        if (authToken == null) {
-            Log.e("main", "authToken does not exist. Probably login required.")
-            return
-        }
-        apiClient.getApiService().getBooks(token = "Bearer ${authToken}")
+
+        apiClient.getApiService(this).getBooks()
             .enqueue(object : Callback<List<Book>> {
                 override fun onFailure(call: Call<List<Book>>, t: Throwable) {
                     Log.e("main", "get book list error")

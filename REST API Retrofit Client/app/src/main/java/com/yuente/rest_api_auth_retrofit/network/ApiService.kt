@@ -12,5 +12,5 @@ interface ApiService {
     fun login(@Body request: LoginRequest): Call<LoginResponse>
 
     @GET(Paths.BOOKS_URL)
-    fun getBooks(@Header("Authorization") token: String): Call<List<Book>>
+    fun getBooks(): Call<List<Book>>
 }
